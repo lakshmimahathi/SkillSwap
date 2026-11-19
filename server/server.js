@@ -1,0 +1,13 @@
+require('dotenv').config();
+const express = require('express'), cors = require('cors');
+const app = express();
+app.use(cors({origin:'http://localhost:5173'})); app.use(express.json());
+app.get('/api/health',(_,res)=>res.json({message:'SkillSwap API is running'}));
+app.use('/api/auth',require('./routes/auth'));
+app.use('/api/skills',require('./routes/skills'));
+app.use('/api/users/me/skills',require('./routes/mySkills'));
+app.use('/api/matches',require('./routes/matches'));
+app.use('/api/requests',require('./routes/requests'));
+app.use('/api/sessions',require('./routes/sessions'));
+app.use('/api/ratings',require('./routes/ratings'));
+app.listen(process.env.PORT||5000,()=>console.log('SkillSwap API running on port '+(process.env.PORT||5000)));
